@@ -23,8 +23,8 @@ HOSTNAME = "127.0.0.1"
 #start = time.time()
 
 conn = MySQLdb.connect(user="root", password="keklol1488", host="localhost", db="ctf")
-
-def mysql_query(self, query, args=(), one=True, is_destructive=False):
+hosts = mysql_query("SELECT host FROM user")
+def mysql_query(query, args=(), one=True, is_destructive=False):
     assert(isinstance(query, str))
     assert(isinstance(args, tuple))
     try:
