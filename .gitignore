@@ -20,6 +20,10 @@ lib64/
 parts/
 sdist/
 var/
+<<<<<<< HEAD
+=======
+wheels/
+>>>>>>> 0647d578e44ff81de5b8418840d57856cc027666
 *.egg-info/
 .installed.cfg
 *.egg
@@ -42,7 +46,11 @@ htmlcov/
 .cache
 nosetests.xml
 coverage.xml
+<<<<<<< HEAD
 *,cover
+=======
+*.cover
+>>>>>>> 0647d578e44ff81de5b8418840d57856cc027666
 .hypothesis/
 
 # Translations
@@ -66,7 +74,11 @@ docs/_build/
 # PyBuilder
 target/
 
+<<<<<<< HEAD
 # IPython Notebook
+=======
+# Jupyter Notebook
+>>>>>>> 0647d578e44ff81de5b8418840d57856cc027666
 .ipynb_checkpoints
 
 # pyenv
@@ -75,20 +87,42 @@ target/
 # celery beat schedule file
 celerybeat-schedule
 
+<<<<<<< HEAD
+=======
+# SageMath parsed files
+*.sage.py
+
+>>>>>>> 0647d578e44ff81de5b8418840d57856cc027666
 # dotenv
 .env
 
 # virtualenv
+<<<<<<< HEAD
+=======
+.venv
+>>>>>>> 0647d578e44ff81de5b8418840d57856cc027666
 venv/
 ENV/
 
 # Spyder project settings
 .spyderproject
+<<<<<<< HEAD
+=======
+.spyproject
+>>>>>>> 0647d578e44ff81de5b8418840d57856cc027666
 
 # Rope project settings
 .ropeproject
 
+<<<<<<< HEAD
 exploits/
 .DS_Store
 etc/config.py
 old/
+=======
+# mkdocs documentation
+/site
+
+# mypy
+.mypy_cache/
+>>>>>>> 0647d578e44ff81de5b8418840d57856cc027666
