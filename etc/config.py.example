@@ -1,0 +1,22 @@
+# Server configuration
+connString = 'postgresql://user:pass@host:port/db'
+
+# Game configuration
+GAME = {
+    'teams': 5,
+    'services': 3,
+    'roundtime': 120,
+}
+
+# Configuration for APScheduler
+jobstores = {
+    'default': SQLAlchemyJobStore(url=connString)
+}
+executors = {
+    'default': ThreadPoolExecutor(GAME['teams'] + 5),
+    'processpool': ProcessPoolExecutor(GAME['services'] + 3)
+}
+job_defaults = {
+    'coalesce': False,
+    'max_instances': GAME['teams']
+}
