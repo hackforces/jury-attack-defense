@@ -1,6 +1,7 @@
 # import postgresql
 # import psycopg2
 # import time
+# http://docs.sqlalchemy.org/en/latest/core/connections.html Fetch types
 from sqlalchemy import create_engine
 from sqlalchemy.pool import QueuePool
 # import datetime
@@ -41,6 +42,25 @@ class Database(object):
         )
         result = self.conn.execute(request)
         return result
+    def getTeamByIP(self, network):
+        request = "SELECT id, name FROM teams WHERE network = '{}'".format(network)
+        result = self.conn.execute(request).fetchone()
+        # cursor.close()
+        return result
+    def findFlag(self, flag):
+        request = "SELECT id, team_id, service_id, timestamp FROM logs WHERE flag = '{}'".format(flag)
+        result = self.conn.execute(request).fetchone()
+        return result
+
+    def saveFlag(self, flag_id, team_id):
+        request = "SELECT COUNT(flag_id) FROM flags_stolen WHERE flag_id = {}".format(flag_id)
+        if self.conn.execute(request).scalar():
+            return False
+
+        request = "INSERT INTO flags_stolen (flag_id, team_id) VALUES ({}, {})".format(flag_id, team_id)
+        result = self.conn.execute(request)
+        return True
+
         # request = self.conn.prepare('INSERT INTO logs(team_id, service_id, timestamp, type, code, message) VALUES($1, $2, $3, $4, $5, $6)')
         # return request(team, service, timestamp, atype, code, message)
         # return self.conn.query(request)
