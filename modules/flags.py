@@ -7,6 +7,7 @@ import socket
 import sys
 import threading
 from time import time
+connString = 'postgresql://ctf:14881488@localhost:5432/ctf'
 
 class FlagServer:
 	def __init__(self):
@@ -123,35 +124,13 @@ class Client(threading.Thread):
 			if not DB.saveFlag(flag.id, self.team.id):
 				self.send("This flag is already stolen by someone")
 				return
-
 			self.send("Success")
 			return
-
 
 		except Exception as ex:
 			print(ex)
 			server.threads.remove(self)
 			self.client.close()
-
-        # status = self.db.scoreboard.find_one({
-        #     'team._id': team['_id'],
-        #     'service._id': flag['service']['_id']
-        # })
-		#
-        # if status["status"] != 'UP':
-        #     connection.send(('Your service '+ flag['service']['name'] +' is not working\n').encode())
-        #     continue
-		#
-        # count_round = self.db.flags.find().sort([ ('round', pymongo.DESCENDING) ]).limit(1)[0]['round']
-		#
-        # is_stolen = self.db.stolen_flags.find_one({
-        #     'team._id': team['_id'],
-        #     'flag._id': flag['_id']
-        # })
-		#
-        # if is_stolen:
-        #     connection.send(('You are already pass this flag\n').encode())
-        #     continue
 
 if __name__ == "__main__":
 	DB = Database(connString)

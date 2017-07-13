@@ -37,23 +37,26 @@ class Database(object):
         # return request(limit)
         # return self.conn.query(request)
     def saveAttack(self, info):
+        if attackType(info[3]) == 2:
+            
+
         request = "INSERT INTO logs(team_id, service_id, timestamp, type, code, message, flag) VALUES ({}, {}, '{}', {}, {}, '{}', '{}')".format(
             info[0], info[1], info[2], attackType(info[3]), info[4], info[5].decode("utf-8"), info[6]
         )
         result = self.conn.execute(request)
         return result
     def getTeamByIP(self, network):
-        request = "SELECT id, name FROM teams WHERE network = '{}'".format(network)
+        request = "SELECT id, name FROM teams WHERE network = '{}' LIMIT 1".format(network)
         result = self.conn.execute(request).fetchone()
         # cursor.close()
         return result
     def findFlag(self, flag):
-        request = "SELECT id, team_id, service_id, timestamp FROM logs WHERE flag = '{}'".format(flag)
+        request = "SELECT id, team_id, service_id, timestamp FROM logs WHERE flag = '{}' ORDER BY id DESC LIMIT 1".format(flag)
         result = self.conn.execute(request).fetchone()
         return result
 
     def saveFlag(self, flag_id, team_id):
-        request = "SELECT COUNT(flag_id) FROM flags_stolen WHERE flag_id = {}".format(flag_id)
+        request = "SELECT flag_id FROM flags_stolen WHERE flag_id = {} LIMIT 1".format(flag_id)
         if self.conn.execute(request).scalar():
             return False
 
